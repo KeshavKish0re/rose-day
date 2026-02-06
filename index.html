@@ -21,35 +21,39 @@
         /* heading */
         .title {
             position: absolute;
-            top: 10px;
+            top: 15px;
             width: 100%;
             text-align: center;
-            font-size: 60px;
+            font-size: 64px;
             font-family: 'Great Vibes', cursive;
-            background: linear-gradient(90deg, #fff, #ffd6e7, #fff);
+            background: linear-gradient(90deg, #ffffff, #ffe0ec, #ffffff, #ffd6e7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 25px red;
+            text-shadow: 0 0 30px rgba(255, 0, 80, 0.6);
+            letter-spacing: 3px;
             z-index: 5;
         }
 
         /* name */
         .gf-name {
             position: absolute;
-            top: 70px;
+            top: 95px;
             width: 100%;
             text-align: center;
-            font-size: 32px;
+            font-size: 36px;
             font-family: 'Great Vibes', cursive;
-            color: #fff;
-            text-shadow: 0 0 25px #ff0066;
+            background: linear-gradient(90deg, #fff, #ffd700, #ff99cc, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+            letter-spacing: 2px;
             z-index: 5;
         }
 
         /* heart */
         .heart {
             position: absolute;
-            top: 55%;
+            top: 58%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 320px;
@@ -77,10 +81,10 @@
         /* message */
         .msg {
             position: absolute;
-            bottom: 15px;
+            bottom: 18px;
             width: 100%;
             text-align: center;
-            font-size: 20px;
+            font-size: 22px;
             color: white;
             text-shadow: 0 0 15px red;
             z-index: 5;
@@ -105,32 +109,27 @@
             }
         }
 
-        /* 📱 MOBILE RESPONSIVE */
+        /* mobile */
         @media(max-width:600px) {
 
             .title {
                 font-size: 42px;
-                top: 5px;
+                top: 10px;
             }
 
             .gf-name {
                 font-size: 26px;
-                top: 55px;
+                top: 65px;
             }
 
             .heart {
                 width: 260px;
                 height: 240px;
-                top: 58%;
+                top: 60%;
             }
 
             .msg {
                 font-size: 16px;
-                bottom: 10px;
-            }
-
-            .rose {
-                font-size: 18px;
             }
 
         }
@@ -139,8 +138,8 @@
 
 <body>
 
-    <!-- music -->
-    <audio id="bgMusic" autoplay loop muted>
+    <!-- MUSIC AUTOPLAY -->
+    <audio id="bgMusic" autoplay loop>
         <source src="love.mp3" type="audio/mpeg">
     </audio>
 
@@ -168,19 +167,19 @@
     <div class="msg">You make my life bloom like Roses 🌹</div>
 
     <script>
-        // 🎵 instant music
+        // FORCE INSTANT MUSIC
         const music = document.getElementById("bgMusic");
-        window.onload = () => {
-            music.play().then(() => {
-                setTimeout(() => { music.muted = false; }, 500);
-            }).catch(() => { });
-        };
-        document.addEventListener("click", () => {
-            music.muted = false;
-            music.play();
-        }, { once: true });
+        document.addEventListener("DOMContentLoaded", () => {
+            music.volume = 1;
+            let playPromise = music.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => { }).catch(() => {
+                    document.addEventListener("click", () => music.play(), { once: true });
+                });
+            }
+        });
 
-        // 🌹 falling roses
+        // falling roses
         function createRose() {
             let rose = document.createElement("div");
             rose.innerHTML = "🌹";
