@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Rose Day</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;700&display=swap"
         rel="stylesheet">
 
     <style>
@@ -18,39 +18,37 @@
             height: 100vh;
         }
 
-        /* heading */
+        /* HAPPY ROSE DAY */
         .title {
             position: absolute;
-            top: 18px;
+            top: 20px;
             width: 100%;
             text-align: center;
-            font-size: 60px;
+            font-size: 64px;
             font-family: 'Great Vibes', cursive;
-            background: linear-gradient(90deg, #fff, #ffd6e7, #fff, #ffd6e7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(255, 0, 80, 0.5);
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 20px #ff0000, 0 0 40px #fff;
             letter-spacing: 3px;
             z-index: 5;
         }
 
-        /* name */
+        /* NAME */
         .gf-name {
             position: absolute;
-            top: 85px;
+            top: 95px;
             width: 100%;
             text-align: center;
-            font-size: 34px;
+            font-size: 36px;
             font-family: 'Great Vibes', cursive;
-            background: linear-gradient(90deg, #fff, #ffd700, #ff99cc, #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+            font-weight: bold;
+            color: #ffe600;
+            text-shadow: 0 0 20px #000, 0 0 30px #ff0080;
             letter-spacing: 2px;
             z-index: 5;
         }
 
-        /* heart center perfect */
+        /* heart center */
         .heart {
             position: absolute;
             top: 58%;
@@ -81,21 +79,20 @@
             height: 100%;
             object-fit: cover;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
-        /* final message */
+        /* FINAL MESSAGE */
         .msg {
             position: absolute;
-            bottom: 20px;
+            bottom: 25px;
             width: 100%;
             text-align: center;
-            font-size: 26px;
+            font-size: 28px;
             font-family: 'Great Vibes', cursive;
-            background: linear-gradient(90deg, #fff, #ffd700, #ff99cc, #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+            font-weight: bold;
+            color: #00ffea;
+            text-shadow: 0 0 15px #000, 0 0 25px #00ffff;
             letter-spacing: 2px;
             z-index: 5;
         }
@@ -124,7 +121,7 @@
 
             .title {
                 font-size: 42px;
-                top: 18px;
+                top: 20px;
             }
 
             .gf-name {
@@ -133,8 +130,8 @@
             }
 
             .msg {
-                font-size: 20px;
-                bottom: 18px;
+                font-size: 22px;
+                bottom: 20px;
             }
 
         }
@@ -143,7 +140,7 @@
 
 <body>
 
-    <!-- 🎵 MUSIC -->
+    <!-- 🎵 MUSIC (tap once to start) -->
     <audio id="bgMusic" loop>
         <source src="love.mp3" type="audio/mpeg">
     </audio>
@@ -172,18 +169,34 @@
     <div class="msg">You make my life bloom like roses 🌹</div>
 
     <script>
-        // 🎵 BEST MOBILE AUTOPLAY FIX
+        // 🎵 tap once music start
         const music = document.getElementById("bgMusic");
-
-        function startMusic() {
+        document.addEventListener("click", () => {
             music.volume = 1;
-            music.play().catch(() => { });
-        }
+            music.play();
+        }, { once: true });
 
-        document.addEventListener("DOMContentLoaded", startMusic);
-        document.addEventListener("click", startMusic, { once: true });
-        document.addEventListener("touchstart", startMusic, { once: true });
+        document.addEventListener("touchstart", () => {
+            music.volume = 1;
+            music.play();
+        }, { once: true });
 
         // falling roses
         function createRose() {
-            let rose = document.creat
+            let rose = document.createElement("div");
+            rose.innerHTML = "🌹";
+            rose.className = "rose";
+
+            rose.style.left = Math.random() * 100 + "vw";
+            rose.style.fontSize = (16 + Math.random() * 22) + "px";
+            rose.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+            document.body.appendChild(rose);
+            setTimeout(() => { rose.remove(); }, 7000);
+        }
+        setInterval(createRose, 250);
+    </script>
+
+</body>
+
+</html>
