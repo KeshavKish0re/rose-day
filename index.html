@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Rose Day</title>
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: radial-gradient(circle at top, #ffdde1, #ee9ca7, #ff4e50);
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            perspective: 1200px;
+        }
+
+        h1 {
+            position: absolute;
+            top: 40px;
+            width: 100%;
+            text-align: center;
+            font-size: 60px;
+            color: white;
+            text-shadow: 0 0 20px #ff0066;
+            letter-spacing: 4px;
+            z-index: 2;
+        }
+
+        .scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .rose {
+            position: absolute;
+            font-size: 40px;
+            transform-style: preserve-3d;
+            animation: float 10s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 80, 0.8));
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotateY(0deg) rotateX(0deg);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-120vh) rotateY(720deg) rotateX(360deg);
+                opacity: 0;
+            }
+        }
+
+        .message {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            text-align: center;
+            font-size: 30px;
+            color: white;
+            text-shadow: 0 0 15px red;
+            z-index: 2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🌹 Happy Rose Day 🌹</h1>
+    <div class="scene" id="scene"></div>
+    <div class="message">May your life bloom like roses</div>
+
+    <script>
+        const scene = document.getElementById("scene");
+
+        // Create many roses
+        for (let i = 0; i < 80; i++) {
+            let rose = document.createElement("div");
+            rose.className = "rose";
+            rose.innerHTML = "🌹";
+
+            let left = Math.random() * window.innerWidth;
+            let delay = Math.random() * 10;
+            let size = Math.random() * 40 + 20;
+
+            rose.style.left = left + "px";
+            rose.style.fontSize = size + "px";
+            rose.style.animationDelay = delay + "s";
+
+            scene.appendChild(rose);
+        }
+
+        // 3D mouse movement
+        document.addEventListener("mousemove", (e) => {
+            let x = (window.innerWidth / 2 - e.pageX) / 40;
+            let y = (window.innerHeight / 2 - e.pageY) / 40;
+
+            scene.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+        });
+    </script>
+
+</body>
+
+</html>
