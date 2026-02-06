@@ -6,152 +6,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Rose Day</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap"
+        rel="stylesheet">
+
     <style>
         body {
             margin: 0;
             overflow: hidden;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #ff0844, #ff4e50, #ff758c);
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top, #ff0844, #ff4e50, #ff758c);
             height: 100vh;
         }
 
         /* heading */
-        h1 {
+        .title {
             position: absolute;
-            top: 20px;
+            top: 15px;
             width: 100%;
             text-align: center;
-            font-size: 60px;
-            color: white;
+            font-size: 70px;
+            font-family: 'Great Vibes', cursive;
+            background: linear-gradient(90deg, #fff, #ffd6e7, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-shadow: 0 0 25px red;
-            letter-spacing: 4px;
-            z-index: 2;
         }
 
-        /* girlfriend name */
+        /* name */
         .gf-name {
             position: absolute;
-            top: 100px;
+            top: 95px;
             width: 100%;
             text-align: center;
-            font-size: 40px;
+            font-size: 45px;
+            font-family: 'Great Vibes', cursive;
             color: #fff;
-            text-shadow: 0 0 20px #ff0066;
-            z-index: 2;
+            text-shadow: 0 0 25px #ff0066;
         }
 
-        /* girlfriend photo */
-        .photo {
+        /* heart container */
+        .heart {
             position: absolute;
-            top: 50%;
+            top: 55%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            border: 6px solid white;
-            box-shadow: 0 0 40px red;
-            overflow: hidden;
-            z-index: 3;
+            width: 350px;
+            height: 320px;
         }
 
-        .photo img {
+        /* gallery heart */
+        .gallery {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 6px;
+            clip-path: path("M175 35 C175 -20 350 -20 350 120 C350 230 175 290 175 320 C175 290 0 230 0 120 C0 -20 175 -20 175 35 Z");
+        }
+
+        .gallery img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-
-        /* floating roses */
-        .rose {
-            position: absolute;
-            width: 60px;
-            animation: fall linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(110vh) rotate(360deg);
-                opacity: 0;
-            }
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         /* bottom message */
         .msg {
             position: absolute;
-            bottom: 30px;
+            bottom: 20px;
             width: 100%;
             text-align: center;
-            font-size: 28px;
+            font-size: 26px;
             color: white;
             text-shadow: 0 0 15px red;
+        }
+
+        /* roses */
+        .rose {
+            position: absolute;
+            width: 60px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-120px) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- 🎵 LOVE MUSIC -->
+    <!-- music -->
     <audio id="bgMusic" autoplay loop>
         <source src="love.mp3" type="audio/mpeg">
     </audio>
 
-    <h1>🌹 Happy Rose Day 🌹</h1>
-
+    <div class="title">Happy Rose Day</div>
     <div class="gf-name">For My Love ❤️ Rumjhum</div>
 
-    <div class="photo">
-        <img src="./WhatsApp Image 2026-02-07 at 00.48.49.jpeg" alt="her photo">
+    <!-- ❤️ HEART IMAGE GALLERY (11 images) -->
+    <div class="heart">
+        <div class="gallery">
+
+            <img src="./WhatsApp Image 2026-02-07 at 00.48.49.jpeg">
+            <img src="./WhatsApp Image 2026-02-07 at 01.04.00.jpeg">
+            <img src="./WhatsApp Image 2026-02-07 at 01.04.01.jpeg">
+            <img src="./WhatsApp Image 2026-02-07 at 01.04.02 (1).jpeg">
+            <img src="./WhatsApp Image 2026-02-07 at 01.04.02.jpeg">
+            <img src="./WhatsApp Image 2026-02-07 at 01.04.03 (1).jpeg">
+            <img src="./WhatsApp Image 2026-02-07 at 01.04.03.jpeg">
+            <img src="./WhatsApp Image 2026-02-07 at 01.04.04 (1).jpeg">
+            <img src="./WhatsApp Image 2026-02-07 at 01.04.04.jpeg">
+            <img src="./WhatsApp Image 2026-02-07 at 01.04.05 (1).jpeg">
+            <img src="./WhatsApp Image 2026-02-07 at 01.04.05.jpeg">
+
+        </div>
     </div>
 
-    <div class="msg">You make my life bloom like roses 🌹</div>
+    <div class="msg">You make my life bloom like Roses. 🌹</div>
 
     <script>
-
-        // autoplay fix for browser
+        // music autoplay fix
         const music = document.getElementById("bgMusic");
-        window.addEventListener("load", () => {
-            music.play().catch(() => { });
-        });
-        document.addEventListener("click", () => {
-            music.play();
-        }, { once: true });
+        window.addEventListener("load", () => { music.play().catch(() => { }); });
+        document.addEventListener("click", () => { music.play(); }, { once: true });
 
-        // REAL ROSE IMAGES
+        // realistic roses
         const roses = [
             "https://i.imgur.com/Z6XbK0O.png",
-            "https://i.imgur.com/1XK4K1F.png",
-            "https://i.imgur.com/Qd3Jk9G.png"
+            "https://i.imgur.com/Qd3Jk9G.png",
+            "https://i.imgur.com/1XK4K1F.png"
         ];
 
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 90; i++) {
             let r = document.createElement("img");
             r.src = roses[Math.floor(Math.random() * roses.length)];
             r.className = "rose";
-
             r.style.left = Math.random() * 100 + "vw";
-            r.style.animationDuration = (5 + Math.random() * 5) + "s";
+            r.style.animationDuration = (4 + Math.random() * 6) + "s";
             r.style.width = (40 + Math.random() * 40) + "px";
-
             document.body.appendChild(r);
         }
-
-        // click roses burst
-        document.addEventListener("click", () => {
-            for (let i = 0; i < 15; i++) {
-                let r = document.createElement("img");
-                r.src = roses[0];
-                r.className = "rose";
-                r.style.left = Math.random() * 100 + "vw";
-                r.style.animationDuration = "4s";
-                document.body.appendChild(r);
-            }
-        });
     </script>
 
 </body>
