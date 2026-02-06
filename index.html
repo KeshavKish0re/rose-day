@@ -30,6 +30,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 25px red;
+            z-index: 5;
         }
 
         /* name */
@@ -42,6 +43,7 @@
             font-family: 'Great Vibes', cursive;
             color: #fff;
             text-shadow: 0 0 25px #ff0066;
+            z-index: 5;
         }
 
         /* heart container */
@@ -52,6 +54,7 @@
             transform: translate(-50%, -50%);
             width: 350px;
             height: 320px;
+            z-index: 5;
         }
 
         /* gallery heart */
@@ -73,7 +76,7 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
-        /* bottom message */
+        /* message */
         .msg {
             position: absolute;
             bottom: 20px;
@@ -82,22 +85,28 @@
             font-size: 26px;
             color: white;
             text-shadow: 0 0 15px red;
+            z-index: 5;
         }
 
-        /* roses */
+        /* 🌹 falling roses */
         .rose {
-            position: absolute;
-            width: 60px;
-            animation: fall linear infinite;
+            position: fixed;
+            top: -100px;
+            width: 55px;
+            pointer-events: none;
+            z-index: 1;
+            animation: roseFall linear infinite;
         }
 
-        @keyframes fall {
+        @keyframes roseFall {
             0% {
                 transform: translateY(-120px) rotate(0deg);
+                opacity: 1;
             }
 
             100% {
                 transform: translateY(110vh) rotate(360deg);
+                opacity: 1;
             }
         }
     </style>
@@ -113,7 +122,7 @@
     <div class="title">Happy Rose Day</div>
     <div class="gf-name">For My Love ❤️ Rumjhum</div>
 
-    <!-- ❤️ HEART IMAGE GALLERY (11 images) -->
+    <!-- ❤️ HEART IMAGE GALLERY -->
     <div class="heart">
         <div class="gallery">
 
@@ -132,7 +141,7 @@
         </div>
     </div>
 
-    <div class="msg">You make my life bloom like Roses. 🌹</div>
+    <div class="msg">You make my life bloom like Roses 🌹</div>
 
     <script>
         // music autoplay fix
@@ -147,13 +156,15 @@
             "https://i.imgur.com/1XK4K1F.png"
         ];
 
-        for (let i = 0; i < 90; i++) {
+        // 🌹 falling roses
+        for (let i = 0; i < 70; i++) {
             let r = document.createElement("img");
             r.src = roses[Math.floor(Math.random() * roses.length)];
             r.className = "rose";
             r.style.left = Math.random() * 100 + "vw";
-            r.style.animationDuration = (4 + Math.random() * 6) + "s";
-            r.style.width = (40 + Math.random() * 40) + "px";
+            r.style.animationDuration = (6 + Math.random() * 6) + "s";
+            r.style.width = (35 + Math.random() * 45) + "px";
+            r.style.animationDelay = Math.random() * 5 + "s";
             document.body.appendChild(r);
         }
     </script>
