@@ -10,100 +10,147 @@
         body {
             margin: 0;
             overflow: hidden;
-            background: radial-gradient(circle at top, #ffdde1, #ee9ca7, #ff4e50);
             font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff0844, #ff4e50, #ff758c);
             height: 100vh;
-            perspective: 1200px;
         }
 
+        /* heading */
         h1 {
             position: absolute;
-            top: 40px;
+            top: 20px;
             width: 100%;
             text-align: center;
             font-size: 60px;
             color: white;
-            text-shadow: 0 0 20px #ff0066;
+            text-shadow: 0 0 25px red;
             letter-spacing: 4px;
             z-index: 2;
         }
 
-        .scene {
+        /* girlfriend name */
+        .gf-name {
             position: absolute;
+            top: 100px;
+            width: 100%;
+            text-align: center;
+            font-size: 40px;
+            color: #fff;
+            text-shadow: 0 0 20px #ff0066;
+            z-index: 2;
+        }
+
+        /* girlfriend photo */
+        .photo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 6px solid white;
+            box-shadow: 0 0 40px red;
+            overflow: hidden;
+            z-index: 3;
+        }
+
+        .photo img {
             width: 100%;
             height: 100%;
-            transform-style: preserve-3d;
+            object-fit: cover;
         }
 
+        /* floating roses */
         .rose {
             position: absolute;
-            font-size: 40px;
-            transform-style: preserve-3d;
-            animation: float 10s linear infinite;
-            filter: drop-shadow(0 0 10px rgba(255, 0, 80, 0.8));
+            width: 60px;
+            animation: fall linear infinite;
+            pointer-events: none;
         }
 
-        @keyframes float {
+        @keyframes fall {
             0% {
-                transform: translateY(100vh) rotateY(0deg) rotateX(0deg);
-                opacity: 0;
-            }
-
-            20% {
+                transform: translateY(-100px) rotate(0deg);
                 opacity: 1;
             }
 
             100% {
-                transform: translateY(-120vh) rotateY(720deg) rotateX(360deg);
+                transform: translateY(110vh) rotate(360deg);
                 opacity: 0;
             }
         }
 
-        .message {
+        /* bottom message */
+        .msg {
             position: absolute;
-            bottom: 40px;
+            bottom: 30px;
             width: 100%;
             text-align: center;
-            font-size: 30px;
+            font-size: 28px;
             color: white;
             text-shadow: 0 0 15px red;
-            z-index: 2;
         }
     </style>
 </head>
 
 <body>
 
+    <!-- 🎵 LOVE MUSIC -->
+    <audio id="bgMusic" autoplay loop>
+        <source src="love.mp3" type="audio/mpeg">
+    </audio>
+
     <h1>🌹 Happy Rose Day 🌹</h1>
-    <div class="scene" id="scene"></div>
-    <div class="message">May your life bloom like roses</div>
+
+    <div class="gf-name">For My Love ❤️ Rumjhum</div>
+
+    <div class="photo">
+        <img src="./WhatsApp Image 2026-02-07 at 00.48.49.jpeg" alt="her photo">
+    </div>
+
+    <div class="msg">You make my life bloom like roses 🌹</div>
 
     <script>
-        const scene = document.getElementById("scene");
 
-        // Create many roses
-        for (let i = 0; i < 80; i++) {
-            let rose = document.createElement("div");
-            rose.className = "rose";
-            rose.innerHTML = "🌹";
+        // autoplay fix for browser
+        const music = document.getElementById("bgMusic");
+        window.addEventListener("load", () => {
+            music.play().catch(() => { });
+        });
+        document.addEventListener("click", () => {
+            music.play();
+        }, { once: true });
 
-            let left = Math.random() * window.innerWidth;
-            let delay = Math.random() * 10;
-            let size = Math.random() * 40 + 20;
+        // REAL ROSE IMAGES
+        const roses = [
+            "https://i.imgur.com/Z6XbK0O.png",
+            "https://i.imgur.com/1XK4K1F.png",
+            "https://i.imgur.com/Qd3Jk9G.png"
+        ];
 
-            rose.style.left = left + "px";
-            rose.style.fontSize = size + "px";
-            rose.style.animationDelay = delay + "s";
+        for (let i = 0; i < 40; i++) {
+            let r = document.createElement("img");
+            r.src = roses[Math.floor(Math.random() * roses.length)];
+            r.className = "rose";
 
-            scene.appendChild(rose);
+            r.style.left = Math.random() * 100 + "vw";
+            r.style.animationDuration = (5 + Math.random() * 5) + "s";
+            r.style.width = (40 + Math.random() * 40) + "px";
+
+            document.body.appendChild(r);
         }
 
-        // 3D mouse movement
-        document.addEventListener("mousemove", (e) => {
-            let x = (window.innerWidth / 2 - e.pageX) / 40;
-            let y = (window.innerHeight / 2 - e.pageY) / 40;
-
-            scene.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+        // click roses burst
+        document.addEventListener("click", () => {
+            for (let i = 0; i < 15; i++) {
+                let r = document.createElement("img");
+                r.src = roses[0];
+                r.className = "rose";
+                r.style.left = Math.random() * 100 + "vw";
+                r.style.animationDuration = "4s";
+                document.body.appendChild(r);
+            }
         });
     </script>
 
