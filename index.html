@@ -46,7 +46,7 @@
             z-index: 5;
         }
 
-        /* heart container */
+        /* heart */
         .heart {
             position: absolute;
             top: 55%;
@@ -57,7 +57,6 @@
             z-index: 5;
         }
 
-        /* gallery heart */
         .gallery {
             width: 100%;
             height: 100%;
@@ -76,7 +75,7 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
-        /* message */
+        /* msg */
         .msg {
             position: absolute;
             bottom: 20px;
@@ -91,22 +90,19 @@
         /* 🌹 falling roses */
         .rose {
             position: fixed;
-            top: -100px;
-            width: 55px;
+            top: -80px;
             pointer-events: none;
             z-index: 1;
-            animation: roseFall linear infinite;
+            animation: roseFall linear forwards;
         }
 
         @keyframes roseFall {
             0% {
-                transform: translateY(-120px) rotate(0deg);
-                opacity: 1;
+                transform: translateY(-100px) rotate(0deg);
             }
 
             100% {
                 transform: translateY(110vh) rotate(360deg);
-                opacity: 1;
             }
         }
     </style>
@@ -114,7 +110,6 @@
 
 <body>
 
-    <!-- music -->
     <audio id="bgMusic" autoplay loop>
         <source src="love.mp3" type="audio/mpeg">
     </audio>
@@ -122,7 +117,6 @@
     <div class="title">Happy Rose Day</div>
     <div class="gf-name">For My Love ❤️ Rumjhum</div>
 
-    <!-- ❤️ HEART IMAGE GALLERY -->
     <div class="heart">
         <div class="gallery">
 
@@ -144,29 +138,36 @@
     <div class="msg">You make my life bloom like Roses 🌹</div>
 
     <script>
-        // music autoplay fix
+        // music autoplay
         const music = document.getElementById("bgMusic");
         window.addEventListener("load", () => { music.play().catch(() => { }); });
         document.addEventListener("click", () => { music.play(); }, { once: true });
 
-        // realistic roses
+        // 🌹 working rose png links
         const roses = [
-            "https://i.imgur.com/Z6XbK0O.png",
-            "https://i.imgur.com/Qd3Jk9G.png",
-            "https://i.imgur.com/1XK4K1F.png"
+            "https://pngimg.com/uploads/rose/rose_PNG666.png",
+            "https://pngimg.com/uploads/rose/rose_PNG667.png",
+            "https://pngimg.com/uploads/rose/rose_PNG669.png"
         ];
 
-        // 🌹 falling roses
-        for (let i = 0; i < 70; i++) {
+        // continuous falling roses
+        function createRose() {
             let r = document.createElement("img");
             r.src = roses[Math.floor(Math.random() * roses.length)];
             r.className = "rose";
+
             r.style.left = Math.random() * 100 + "vw";
-            r.style.animationDuration = (6 + Math.random() * 6) + "s";
-            r.style.width = (35 + Math.random() * 45) + "px";
-            r.style.animationDelay = Math.random() * 5 + "s";
+            r.style.width = (30 + Math.random() * 40) + "px";
+            r.style.animationDuration = (5 + Math.random() * 5) + "s";
+
             document.body.appendChild(r);
+
+            // remove after fall
+            setTimeout(() => { r.remove(); }, 9000);
         }
+
+        // rain speed
+        setInterval(createRose, 300);
     </script>
 
 </body>
