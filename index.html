@@ -75,7 +75,6 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
-        /* msg */
         .msg {
             position: absolute;
             bottom: 20px;
@@ -87,22 +86,22 @@
             z-index: 5;
         }
 
-        /* 🌹 falling roses */
+        /* 🌹 falling emoji roses */
         .rose {
             position: fixed;
-            top: -80px;
-            pointer-events: none;
+            top: -50px;
+            font-size: 30px;
+            animation: fall linear forwards;
             z-index: 1;
-            animation: roseFall linear forwards;
         }
 
-        @keyframes roseFall {
+        @keyframes fall {
             0% {
-                transform: translateY(-100px) rotate(0deg);
+                transform: translateY(-50px);
             }
 
             100% {
-                transform: translateY(110vh) rotate(360deg);
+                transform: translateY(110vh);
             }
         }
     </style>
@@ -110,7 +109,8 @@
 
 <body>
 
-    <audio id="bgMusic" autoplay loop>
+    <!-- 🎵 instant music -->
+    <audio id="bgMusic" autoplay loop muted>
         <source src="love.mp3" type="audio/mpeg">
     </audio>
 
@@ -127,7 +127,7 @@
             <img src="./WhatsApp Image 2026-02-07 at 01.04.02.jpeg">
             <img src="./WhatsApp Image 2026-02-07 at 01.04.03 (1).jpeg">
             <img src="./WhatsApp Image 2026-02-07 at 01.04.03.jpeg">
-            <img src="./WhatsApp Image 2026-02-07 at 01.04.04 (1).jpeg">
+            <img src="./WhatsApp Image 2026-02-07 at 01.04.05.jpeg">
             <img src="./WhatsApp Image 2026-02-07 at 01.04.02.jpeg">
             <img src="./WhatsApp Image 2026-02-07 at 01.04.05 (1).jpeg">
             <img src="./WhatsApp Image 2026-02-07 at 01.04.05.jpeg">
@@ -138,36 +138,34 @@
     <div class="msg">You make my life bloom like Roses 🌹</div>
 
     <script>
-        // music autoplay
+        // 🎵 instant music fix
         const music = document.getElementById("bgMusic");
-        window.addEventListener("load", () => { music.play().catch(() => { }); });
-        document.addEventListener("click", () => { music.play(); }, { once: true });
+        window.onload = () => {
+            music.play().then(() => {
+                setTimeout(() => { music.muted = false; }, 500);
+            }).catch(() => { });
+        };
+        document.addEventListener("click", () => {
+            music.muted = false;
+            music.play();
+        }, { once: true });
 
-        // 🌹 working rose png links
-        const roses = [
-            "https://pngimg.com/uploads/rose/rose_PNG666.png",
-            "https://pngimg.com/uploads/rose/rose_PNG667.png",
-            "https://pngimg.com/uploads/rose/rose_PNG669.png"
-        ];
-
-        // continuous falling roses
+        // 🌹 falling roses emoji (always visible)
         function createRose() {
-            let r = document.createElement("img");
-            r.src = roses[Math.floor(Math.random() * roses.length)];
-            r.className = "rose";
+            let rose = document.createElement("div");
+            rose.innerHTML = "🌹";
+            rose.className = "rose";
 
-            r.style.left = Math.random() * 100 + "vw";
-            r.style.width = (30 + Math.random() * 40) + "px";
-            r.style.animationDuration = (5 + Math.random() * 5) + "s";
+            rose.style.left = Math.random() * 100 + "vw";
+            rose.style.fontSize = (20 + Math.random() * 25) + "px";
+            rose.style.animationDuration = (4 + Math.random() * 4) + "s";
 
-            document.body.appendChild(r);
+            document.body.appendChild(rose);
 
-            // remove after fall
-            setTimeout(() => { r.remove(); }, 9000);
+            setTimeout(() => { rose.remove(); }, 7000);
         }
 
-        // rain speed
-        setInterval(createRose, 300);
+        setInterval(createRose, 200);
     </script>
 
 </body>
